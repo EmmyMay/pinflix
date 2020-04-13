@@ -4,6 +4,8 @@
   </v-app>
 </template>
 
+
+
 <style>
 #vapp div:nth-child(1) {
   justify-content: center !important;

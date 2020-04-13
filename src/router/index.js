@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Latest from '../views/mainpage.vue'
+import Twitter from '../views/maintwitter.vue'
+import Parser from '../views/upload.vue'
+import Test from '../views/test.vue'
+import TikTok from '../views/maintiktok.vue'
 
 Vue.use(VueRouter)
 
@@ -11,10 +14,31 @@ const routes = [{
     component: Home
   },
   {
-    path: '/main',
-    name: 'Latest',
-    component: Latest
+    path: '/maintwi',
+    name: 'Twitter',
+    component: Twitter
+  },
+  {
+
+    path: '/upload',
+    name: 'Parser',
+    component: Parser
+
+  },
+  {
+
+    path: '/test',
+    name: 'Test',
+    component: Test
+
+  },
+  {
+    path: '/maintik',
+    name: TikTok,
+    component: TikTok
+
   }
+
 ]
 
 const router = new VueRouter({

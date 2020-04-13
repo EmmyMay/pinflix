@@ -1,58 +1,30 @@
 <template>
-  <v-container fluid>
-    <div id="cont">
-      <v-card id="logo" height="7rem" width="20rem" class="yellow" tile>
-        <div class="cardd">
-          <v-card-text>
-            <div class="text-center">
-              <span id="joke">Joke</span>
-              <span id="flix" class="red--text">Flix</span>
-            </div>
-          </v-card-text>
-        </div>
-      </v-card>
-
-      <div class="bbx">
-        <!-- Button Box  -->
-
-        <v-btn to="/home" id="btnbrdr" large outlined color="black">
-          <span class="btntxt">Laugh</span>
-        </v-btn>
-      </div>
-
-      <div id="coll">
-        <v-card
-          class="ma-3 text-center"
-          id="carrd"
-          v-for="content in contents"
-          :key="content.text"
-          height="15rem"
-        >
-          <div>
-            <v-card-text>{{content.text}}</v-card-text>
+  <div id="cont">
+    <v-card id="logo" height="7rem" width="20rem" class="yellow" tile>
+      <div class="cardd">
+        <v-card-text>
+          <div class="text-center">
+            <span id="joke">Joke</span>
+            <span id="flix" class="red--text">Flix</span>
           </div>
-        </v-card>
+        </v-card-text>
       </div>
+    </v-card>
+
+    <div class="bbx">
+      <!-- Button Box  -->
+
+      <v-btn to="/main" id="btnbrdr" large outlined color="black">
+        <span class="btntxt">Laugh</span>
+      </v-btn>
     </div>
-  </v-container>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
-    return {
-      contents: [
-        {
-          text: "Find funny videos from your favorite Skit-Makers"
-        },
-        {
-          text: "Find funny videos from your favorite Skit-Makers"
-        },
-        {
-          text: "Find funny videos from your favorite Skit-Makers"
-        }
-      ]
-    };
+    return {};
   }
 };
 </script>
