@@ -10,6 +10,13 @@ const getters = {
 };
 
 const actions = {
+    async getTweets({
+        commit
+    }) {
+        const response = await axios.get("http://localhost:8080/pin/twitter");
+        console.log(response.data);
+        commit('tweets', response.data);
+    },
     async createTweet({
         commit
     }, twitterObject) {
@@ -20,6 +27,7 @@ const actions = {
 
 
 const mutations = {
+    tweets: (state, tweet) => (state.tweetData = tweet),
     postedTweet: (state, tweet) => state.tweetData.unshift(tweet)
 };
 

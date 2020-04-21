@@ -64,6 +64,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import bnav from "@/components/btmnav";
 export default {
   components: {
@@ -139,6 +140,12 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    ...mapActions(["getTweets"])
+  },
+  created() {
+    this.getTweets();
   }
 };
 </script>

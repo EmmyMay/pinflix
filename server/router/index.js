@@ -12,11 +12,12 @@ r.get('/pin/twitter', async (ctx) => {
 
 
     } catch (error) {
-        ctx.body = "error: " + error
+        console.log(error);
+        ctx.body = "error: The Server timed-out "
     }
 })
 // get route to handle TikTok posts
-r.get('/pin/twitter', async (ctx) => {
+r.get('/pin/tiktok', async (ctx) => {
     try {
 
         var tweets = await Twitter.find();
