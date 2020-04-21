@@ -1,24 +1,24 @@
 <template>
   <div id="container">
     <div class="hidden-sm-and-down" id="mcont">
-      <div v-for="data in Dataset" :key="data.firsthref" id="blckqt">
-        <blockquote class="twitter-tweet">
-          <p lang="en" dir="ltr">
-            {{data.caption}}
-            <a :href="data.firsthref"></a>
-            {{data.handle}}
-          </p>
-          <a :href="data.secondhref">{{data.date}}</a>
+      <div v-for="data in Dataset" :key="data.vidID" id="blckqt">
+        <blockquote
+          class="tiktok-embed tikcont"
+          :cite="data.cite"
+          :data-video-id="data.vidID"
+          style="max-width: 605px;min-width: 325px;"
+        >
+          <section></section>
         </blockquote>
       </div>
     </div>
 
     <!-- <div class="d-md-flex-d-lg-none" id="mcontmedium">
-      <div v-for="data in Dataset" :key="data.firsthref" id="blckqtmedium">
+      <div v-for="data in Dataset" :key="data.vidID" id="blckqtmedium">
         <blockquote class="twitter-tweet">
           <p lang="en" dir="ltr">
             {{data.caption}}
-            <a :href="data.firsthref"></a>
+            <a :href="data.vidID"></a>
             {{data.handle}}
           </p>
           <a :href="data.secondhref">{{data.date}}</a>
@@ -27,14 +27,14 @@
     </div>-->
 
     <div class="hidden-md-and-up" id="mcontsmall">
-      <div v-for="data in Dataset" :key="data.firsthref" id="blckqtsmall">
-        <blockquote class="twitter-tweet">
-          <p lang="en" dir="ltr">
-            {{data.caption}}
-            <a :href="data.firsthref"></a>
-            {{data.handle}}
-          </p>
-          <a :href="data.secondhref">{{data.date}}</a>
+      <div v-for="data in Dataset" :key="data.vidID" id="blckqtsmall">
+        <blockquote
+          class="tiktok-embed tikcont"
+          :cite="data.cite"
+          :data-video-id="data.vidID"
+          style="max-width: 605px;min-width: 300px;"
+        >
+          <section></section>
         </blockquote>
       </div>
     </div>
@@ -51,71 +51,61 @@ export default {
   },
   data() {
     return {
-      bottomNav: "recent",
       Dataset: [
         {
-          caption: " A short Lockdown story 😂😂😭😭😂😂",
-          handle: " MÓŃKELE ❤️ (@_Taaooma)",
-          secondhref:
-            "https://twitter.com/_Taaooma/status/1247087432421519362?ref_src=twsrc%5Etfw",
-          date: "April 6, 2020",
-          firsthref: "https://t.co/uS88mxNGpo"
+          cite:
+            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
+          vidID: "6814148750047448326"
         },
         {
-          caption: " Full Service ⛽️🍑 ",
-          handle: " The Curvy Thick (@TheCurvyThick)",
-          secondhref:
-            "https://twitter.com/TheCurvyThick/status/1247998077593628672?ref_src=twsrc%5Etfw",
-          date: "April 8, 2020",
-          firsthref: "https://t.co/P5XwQdudlr"
+          cite:
+            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
+          vidID: "6814148750047448326"
         },
         {
-          caption: " Full Service ⛽️🍑 ",
-          handle: " The Curvy Thick (@TheCurvyThick)",
-          secondhref:
-            "https://twitter.com/TheCurvyThick/status/1247998077593628672?ref_src=twsrc%5Etfw",
-          date: "April 8, 2020",
-          firsthref: "https://t.co/P5XwQdudlr"
+          cite:
+            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
+          vidID: "6814148750047448326"
         },
         {
-          caption: " A short Lockdown story 😂😂😭😭😂😂",
-          handle: " MÓŃKELE ❤️ (@_Taaooma)",
-          secondhref:
-            "https://twitter.com/_Taaooma/status/1247087432421519362?ref_src=twsrc%5Etfw",
-          date: "April 6, 2020",
-          firsthref: "https://t.co/uS88mxNGpo"
+          cite:
+            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
+          vidID: "6814148750047448326"
         },
         {
-          caption: " Full Service ⛽️🍑 ",
-          handle: " The Curvy Thick (@TheCurvyThick)",
-          secondhref:
-            "https://twitter.com/TheCurvyThick/status/1247998077593628672?ref_src=twsrc%5Etfw",
-          date: "April 8, 2020",
-          firsthref: "https://t.co/P5XwQdudlr"
+          cite:
+            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
+          vidID: "6814148750047448326"
         },
         {
-          caption: " Full Service ⛽️🍑 ",
-          handle: " The Curvy Thick (@TheCurvyThick)",
-          secondhref:
-            "https://twitter.com/TheCurvyThick/status/1247998077593628672?ref_src=twsrc%5Etfw",
-          date: "April 8, 2020",
-          firsthref: "https://t.co/P5XwQdudlr"
+          cite:
+            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
+          vidID: "6814148750047448326"
         },
         {
-          caption: " Full Service ⛽️🍑 ",
-          handle: " The Curvy Thick (@TheCurvyThick)",
-          secondhref:
-            "https://twitter.com/TheCurvyThick/status/1247998077593628672?ref_src=twsrc%5Etfw",
-          date: "April 8, 2020",
-          firsthref: "https://t.co/P5XwQdudlr"
+          cite:
+            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
+          vidID: "6814148750047448326"
         },
         {
-          caption: " Full Service ⛽️🍑 ",
-          handle: " The Curvy Thick (@TheCurvyThick)",
-          secondhref:
-            "https://twitter.com/TheCurvyThick/status/1247998077593628672?ref_src=twsrc%5Etfw",
-          date: "April 8, 2020",
-          firsthref: "https://t.co/P5XwQdudlr"
+          cite:
+            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
+          vidID: "6814148750047448326"
+        },
+        {
+          cite:
+            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
+          vidID: "6814148750047448326"
+        },
+        {
+          cite:
+            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
+          vidID: "6814148750047448326"
+        },
+        {
+          cite:
+            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
+          vidID: "6814148750047448326"
         }
       ]
     };
@@ -126,7 +116,7 @@ export default {
 <style scoped >
 #container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: 100px;
   grid-template-areas:
@@ -140,7 +130,7 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   grid-area: body;
-  justify-content: space-around;
+  justify-content: space-evenly;
   max-height: 650px;
 }
 #mcontsmall {
@@ -149,6 +139,7 @@ export default {
   grid-area: body;
   align-items: center;
   max-height: 300px;
+  margin-right: 4rem;
 }
 
 #bnav {

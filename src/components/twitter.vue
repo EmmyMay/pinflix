@@ -27,7 +27,10 @@
 </template>
 
 <script>
+// import axios from "axios";
+import { mapActions } from "vuex";
 export default {
+  name: "twitter",
   data() {
     return {
       blockquote: "",
@@ -41,12 +44,18 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["createTweet"]),
     parseCode: function(htmltag) {
       var parser = new DOMParser();
       htmltag = this.blockquote;
       var doc = parser.parseFromString(htmltag, "text/html");
       var thePTag = doc.all[4];
-      this.twitterObject.caption = thePTag.childNodes[0].nodeValue;
+      var video = "Video";
+      this.twitterObject.caption =
+        thePTag.childNodes[0].nodeValue != null
+          ? thePTag.childNodes[0].nodeValue
+          : video;
+
       this.twitterObject.firsthref = thePTag.lastElementChild.getAttribute(
         "href"
       );
@@ -56,6 +65,8 @@ export default {
       this.twitterObject.date = doc.all[3].lastElementChild.innerText;
       this.twitterObject.handle = doc.all[4].nextSibling.wholeText;
       console.log(this.twitterObject);
+      this.createTweet(this.twitterObject);
+      // axios.post("http://localhost:8080/pin/twitter", this.twitterObject);
     }
   }
 };

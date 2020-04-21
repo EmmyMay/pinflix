@@ -38,6 +38,26 @@
         </blockquote>
       </div>
     </div>
+    <blockquote
+      class="tiktok-embed"
+      cite="https://www.tiktok.com/@queenritaibeh/video/6788068427639590149"
+      data-video-id="6788068427639590149"
+      style="max-width: 605px;min-width: 325px;"
+    >
+      <section>
+        <a
+          target="_blank"
+          title="@queenritaibeh"
+          href="https://www.tiktok.com/@queenritaibeh"
+        >@queenritaibeh</a>
+        <p></p>
+        <a
+          target="_blank"
+          title="♬ original sound - queenritaibeh"
+          href="https://www.tiktok.com/music/original-sound-6785562068192856838"
+        >♬ original sound - queenritaibeh</a>
+      </section>
+    </blockquote>
 
     <bnav></bnav>
   </div>

@@ -9,11 +9,17 @@
     <div id="tiktok-box">
       <v-row>
         <v-col cols="12">
-          <v-text-field width="40rem" label="Paste Code Here" persistent-hint outlined></v-text-field>
+          <v-text-field
+            v-model="blockquote"
+            width="40rem"
+            label="Paste Code Here"
+            persistent-hint
+            outlined
+          ></v-text-field>
         </v-col>
       </v-row>
 
-      <v-btn color="blue accent-4">
+      <v-btn @click="parseCode" color="blue accent-4">
         <span class="text--white">Upload</span>
       </v-btn>
     </div>
@@ -21,7 +27,28 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      blockquote: "",
+      tiktokObject: {
+        cite: "",
+        vidID: ""
+      }
+    };
+  },
+  methods: {
+    parseCode: function(htmltag) {
+      var parser = new DOMParser();
+      htmltag = this.blockquote;
+      var doc = parser.parseFromString(htmltag, "text/html");
+      this.tiktokObject.cite = doc.all[3].getAttribute("cite");
+      this.tiktokObject.vidID = doc.all[3].dataset.videoId;
+
+      console.log(this.tiktokObject);
+    }
+  }
+};
 </script>
 
 <style scoped>

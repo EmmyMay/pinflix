@@ -2,8 +2,8 @@
   <div id="bnav">
     <v-bottom-navigation fixed v-model="bottomNav">
       <v-btn value="recent">
-        <span>Recent</span>
-        <v-icon>mdi-history</v-icon>
+        <span>Twitter</span>
+        <v-icon>mdi-twitter</v-icon>
       </v-btn>
 
       <v-btn value="favorites">

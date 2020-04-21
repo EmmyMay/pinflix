@@ -14,7 +14,7 @@
     <div class="bbx">
       <!-- Button Box  -->
 
-      <v-btn to="/main" id="btnbrdr" large outlined color="black">
+      <v-btn to="/maintwi" id="btnbrdr" large outlined color="black">
         <span class="btntxt">Laugh</span>
       </v-btn>
     </div>
