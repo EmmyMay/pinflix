@@ -1,12 +1,12 @@
 import axios from 'axios'
 
 const state = {
-    tweetData: []
+    tweetArr: []
 
 };
 
 const getters = {
-    tweetPins: (state) => state.tweetData,
+    tweetPins: (state) => state.tweetArr,
 };
 
 const actions = {
@@ -15,7 +15,7 @@ const actions = {
     }) {
         const response = await axios.get("http://localhost:8080/pin/twitter");
         console.log(response.data);
-        commit('tweets', response.data);
+        commit('Settweets', response.data);
     },
     async createTweet({
         commit
@@ -27,8 +27,8 @@ const actions = {
 
 
 const mutations = {
-    tweets: (state, tweet) => (state.tweetData = tweet),
-    postedTweet: (state, tweet) => state.tweetData.unshift(tweet)
+    Settweets: (state, tweetPin) => state.tweetArr = tweetPin,
+    postedTweet: (state, tweet) => state.tweetArr.unshift(tweet)
 };
 
 export default {

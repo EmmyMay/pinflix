@@ -1,7 +1,7 @@
 <template>
   <div id="container">
     <div class="hidden-sm-and-down" id="mcont">
-      <div v-for="data in Dataset" :key="data.vidID" id="blckqt">
+      <div v-for="data in tikPins" :key="data.vidID" id="blckqt">
         <blockquote
           class="tiktok-embed tikcont"
           :cite="data.cite"
@@ -13,21 +13,8 @@
       </div>
     </div>
 
-    <!-- <div class="d-md-flex-d-lg-none" id="mcontmedium">
-      <div v-for="data in Dataset" :key="data.vidID" id="blckqtmedium">
-        <blockquote class="twitter-tweet">
-          <p lang="en" dir="ltr">
-            {{data.caption}}
-            <a :href="data.vidID"></a>
-            {{data.handle}}
-          </p>
-          <a :href="data.secondhref">{{data.date}}</a>
-        </blockquote>
-      </div>
-    </div>-->
-
     <div class="hidden-md-and-up" id="mcontsmall">
-      <div v-for="data in Dataset" :key="data.vidID" id="blckqtsmall">
+      <div v-for="data in tikPins" :key="data.vidID" id="blckqtsmall">
         <blockquote
           class="tiktok-embed tikcont"
           :cite="data.cite"
@@ -44,71 +31,25 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import bnav from "@/components/btmnav";
 export default {
   components: {
     bnav
   },
   data() {
-    return {
-      Dataset: [
-        {
-          cite:
-            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
-          vidID: "6814148750047448326"
-        },
-        {
-          cite:
-            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
-          vidID: "6814148750047448326"
-        },
-        {
-          cite:
-            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
-          vidID: "6814148750047448326"
-        },
-        {
-          cite:
-            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
-          vidID: "6814148750047448326"
-        },
-        {
-          cite:
-            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
-          vidID: "6814148750047448326"
-        },
-        {
-          cite:
-            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
-          vidID: "6814148750047448326"
-        },
-        {
-          cite:
-            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
-          vidID: "6814148750047448326"
-        },
-        {
-          cite:
-            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
-          vidID: "6814148750047448326"
-        },
-        {
-          cite:
-            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
-          vidID: "6814148750047448326"
-        },
-        {
-          cite:
-            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
-          vidID: "6814148750047448326"
-        },
-        {
-          cite:
-            "https://www.tiktok.com/@andreaandlewis/video/6814148750047448326",
-          vidID: "6814148750047448326"
-        }
-      ]
-    };
+    return {};
+  },
+
+  methods: {
+    ...mapActions(["getTiks"])
+  },
+
+  computed: {
+    ...mapGetters(["tikPins"])
+  },
+  created() {
+    this.getTiks();
   }
 };
 </script>

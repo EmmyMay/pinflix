@@ -1,6 +1,6 @@
 <template>
   <div id="bnav">
-    <v-bottom-navigation fixed v-model="bottomNav">
+    <v-bottom-navigation fixed>
       <v-btn value="recent">
         <span>Twitter</span>
         <v-icon>mdi-twitter</v-icon>

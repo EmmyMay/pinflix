@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -37,14 +38,16 @@ export default {
       }
     };
   },
+
   methods: {
+    ...mapActions(["createTik"]),
     parseCode: function(htmltag) {
       var parser = new DOMParser();
       htmltag = this.blockquote;
       var doc = parser.parseFromString(htmltag, "text/html");
       this.tiktokObject.cite = doc.all[3].getAttribute("cite");
       this.tiktokObject.vidID = doc.all[3].dataset.videoId;
-
+      this.createTik(this.tiktokObject);
       console.log(this.tiktokObject);
     }
   }

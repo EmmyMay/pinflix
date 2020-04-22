@@ -16,6 +16,6 @@ const TiktokSchema = new mongoose.Schema({
         default: Date.now()
     }
 });
-const tiktokpin = mongoose.model(TiktokSchema);
+const tiktokpin = mongoose.model("tiks", TiktokSchema);
 
 module.exports = tiktokpin;

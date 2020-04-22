@@ -1,30 +1,97 @@
 <template>
-  <div id="cont">
-    <v-card id="logo" height="7rem" width="20rem" class="yellow" tile>
-      <div class="cardd">
-        <v-card-text>
-          <div class="text-center">
-            <span id="joke">Joke</span>
-            <span id="flix" class="red--text">Flix</span>
+  <v-container id="cont">
+    <v-row v-if="$vuetify.breakpoint.mdAndUp">
+      <v-col>
+        <v-card id="logo" height="7rem" width="20rem" class="yellow" tile>
+          <div class="cardd">
+            <v-card-text>
+              <div class="text-center">
+                <span id="joke">Joke</span>
+                <span id="flix" class="red--text">Flix</span>
+              </div>
+            </v-card-text>
           </div>
-        </v-card-text>
-      </div>
-    </v-card>
+        </v-card>
+      </v-col>
+    </v-row>
 
-    <div class="bbx">
-      <!-- Button Box  -->
-
+    <div v-if="$vuetify.breakpoint.mdAndUp">
       <v-btn to="/maintwi" id="btnbrdr" large outlined color="black">
         <span class="btntxt">Laugh</span>
       </v-btn>
     </div>
-  </div>
+
+    <v-row v-if="$vuetify.breakpoint.mdAndUp" id="infobox">
+      <v-col cols="12" v-for="intro in intros" :key="`${intro.title}`">
+        <v-card>
+          <v-card-title :prepend-icon="intro.icon">{{intro.title}}</v-card-title>
+          <v-card-text>{{intro.body}}</v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <!-- ********************************************************* -->
+
+    <v-row id="cont2" v-if="$vuetify.breakpoint.smAndDown">
+      <v-col>
+        <v-card id="logo" height="7rem" width="20rem" class="yellow" tile>
+          <div class="cardd">
+            <v-card-text>
+              <div class="text-center">
+                <span id="joke">Joke</span>
+                <span id="flix" class="red--text">Flix</span>
+              </div>
+            </v-card-text>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <div class="bbx2" v-if="$vuetify.breakpoint.smAndDown">
+      <v-btn to="/maintwi" id="btnbrdr" large outlined color="black">
+        <span class="btntxt">Laugh</span>
+      </v-btn>
+    </div>
+
+    <v-row id="infobox2" v-if="$vuetify.breakpoint.smAndDown">
+      <v-col cols="12" v-for="intro in intros" :key="`${intro.title}`">
+        <v-card>
+          <v-card-title :prepend-icon="intro.icon">{{intro.title}}</v-card-title>
+          <v-card-text>{{intro.body}}</v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 export default {
   data() {
-    return {};
+    return {
+      intros: [
+        {
+          title: "Lorem",
+          icon: "mdi-circle",
+          body: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, quis sapiente.
+   Aspernatur fugit repellendus repellat nemo vel perferendis, quaerat enim, 
+  necessitatibus id consectetur accusamus soluta dolores dicta ullam dolorem cum.`
+        },
+        {
+          title: "Lorem",
+          icon: "mdi-circle",
+          body: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, quis sapiente.
+   Aspernatur fugit repellendus repellat nemo vel perferendis, quaerat enim, 
+  necessitatibus id consectetur accusamus soluta dolores dicta ullam dolorem cum.`
+        },
+        {
+          title: "Lorem",
+          icon: "mdi-circle",
+          body: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, quis sapiente.
+   Aspernatur fugit repellendus repellat nemo vel perferendis, quaerat enim, 
+  necessitatibus id consectetur accusamus soluta dolores dicta ullam dolorem cum.`
+        }
+      ]
+    };
   }
 };
 </script>
@@ -32,6 +99,14 @@ export default {
 <style>
 @import url("https://fonts.googleapis.com/css?family=Bowlby+One+SC|Russo+One|Spicy+Rice|Titan+One&display=swap");
 
+#infobox {
+  position: relative;
+  top: 10%;
+}
+#infobox2 {
+  position: relative;
+  top: 45%;
+}
 #logo {
   display: grid;
   place-items: center;
@@ -55,13 +130,25 @@ export default {
 #cont {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-end;
   align-items: center;
-  height: 30rem;
+  position: relative;
+  top: 10%;
+  height: 100vh;
+}
+#cont2 {
+  position: relative;
+  top: 30%;
+  height: 100vh;
 }
 .bbx {
   position: relative;
   top: 5%;
+}
+
+.bbx2 {
+  position: relative;
+  top: 35%;
 }
 #joke {
   font-size: 4rem;
