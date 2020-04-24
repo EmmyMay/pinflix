@@ -1,5 +1,8 @@
 import axios from 'axios'
 
+
+
+
 const state = {
     tweetArr: []
 
@@ -14,12 +17,13 @@ const actions = {
         commit
     }) {
         const response = await axios.get("http://localhost:8080/pin/twitter");
-        console.log(response.data);
+
         commit('Settweets', response.data);
     },
     async createTweet({
         commit
     }, twitterObject) {
+
         const response = await axios.post("http://localhost:8080/pin/twitter", twitterObject);
         commit('postedTweet', response.data);
     }

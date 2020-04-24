@@ -1,20 +1,22 @@
 <template>
-  <div id="container">
-    <div class="hidden-sm-and-down" id="mcont">
-      <div v-for="data in tweetPins" :key="data.firsthref" id="blckqt">
-        <blockquote class="twitter-tweet">
-          <p lang="en" dir="ltr">
-            {{data.caption}}
-            <a :href="data.firsthref"></a>
-            {{data.handle}}
-          </p>
-          <a :href="data.secondhref">{{data.date}}</a>
-        </blockquote>
-      </div>
-    </div>
+  <v-container>
+    <v-row class="btmspace">
+      <v-col cols="12" lg="4" v-for="data in tweetPins" :key="data.firsthref">
+        <v-card tile>
+          <blockquote class="twitter-tweet">
+            <p lang="en" dir="ltr">
+              {{data.caption}}
+              <a :href="data.firsthref"></a>
+              {{data.handle}}
+            </p>
+            <a :href="data.secondhref">{{data.date}}</a>
+          </blockquote>
+        </v-card>
+      </v-col>
+    </v-row>
 
-    <!-- <div class="d-md-flex-d-lg-none" id="mcontmedium">
-      <div v-for="data in tweetPins" :key="data.firsthref" id="blckqtmedium">
+    <!-- <v-row v-if="$vuetify.breakpoint.mdAndDown" id="mcontsmall">
+      <v-col v-for="data in tweetPins" :key="data.firsthref" id="blckqtsmall">
         <blockquote class="twitter-tweet">
           <p lang="en" dir="ltr">
             {{data.caption}}
@@ -23,11 +25,11 @@
           </p>
           <a :href="data.secondhref">{{data.date}}</a>
         </blockquote>
-      </div>
-    </div>-->
+      </v-col>
+    </v-row>-->
 
-    <div class="hidden-md-and-up" id="mcontsmall">
-      <div v-for="data in tweetPins" :key="data.firsthref" id="blckqtsmall">
+    <!-- <v-row class="hidden-md-and-up">
+      <v-col v-for="data in tweetPins" :key="data.firsthref">
         <blockquote class="twitter-tweet">
           <p lang="en" dir="ltr">
             {{data.caption}}
@@ -36,15 +38,17 @@
           </p>
           <a :href="data.secondhref">{{data.date}}</a>
         </blockquote>
-      </div>
-    </div>
+      </v-col>
+    </v-row>-->
     <bnav></bnav>
-  </div>
+  </v-container>
 </template>
+
 
 <script>
 import { mapGetters, mapActions } from "vuex";
 import bnav from "@/components/btmnav";
+
 export default {
   components: {
     bnav
@@ -62,6 +66,18 @@ export default {
   },
   created() {
     this.getTweets();
+  },
+  mounted() {
+    if (localStorage.getItem("reloaded")) {
+      // The page was just reloaded. Clear the value from local storage
+      // so that it will reload the next time this page is visited.
+      localStorage.removeItem("reloaded");
+    } else {
+      // Set a flag so that we know not to reload the page twice.
+
+      localStorage.setItem("reloaded", "1");
+      location.reload();
+    }
   }
 };
 </script>
@@ -103,5 +119,8 @@ export default {
 }
 #blckqtsmall {
   width: 15rem;
+}
+.btmspace {
+  margin-bottom: 5rem;
 }
 </style>
