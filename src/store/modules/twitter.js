@@ -4,14 +4,12 @@ import axios from 'axios'
 
 
 const state = {
-    tweetArr: [],
-    dark: true
+    tweetArr: []
 
 };
 
 const getters = {
     tweetPins: (state) => state.tweetArr.reverse(),
-    darkState: (state) => state.dark
 };
 
 const actions = {
@@ -28,25 +26,13 @@ const actions = {
 
         const response = await axios.post("http://localhost:8080/pin/twitter", twitterObject);
         commit('postedTweet', response.data);
-    },
-    setappmode({
-        commit
-    }, payload) {
-        console.log(payload + " Payload");
-
-
-        commit('appmode', payload);
     }
 };
 
 
 const mutations = {
     Settweets: (state, tweetPin) => state.tweetArr = tweetPin,
-    postedTweet: (state, tweet) => state.tweetArr.unshift(tweet),
-    appmode: (state, payload) => {
-        state.dark = payload;
-        console.log(state.dark + " Inside mutations");
-    }
+    postedTweet: (state, tweet) => state.tweetArr.unshift(tweet)
 };
 
 export default {

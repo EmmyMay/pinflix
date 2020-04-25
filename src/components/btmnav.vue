@@ -14,49 +14,50 @@
         <span>TikTok</span>
         <v-icon color="black">mdi-music-note-sixteenth</v-icon>
       </v-btn>
-      <v-btn v-if="!this.darkState" @click="goDark" v-model="dark" value="tiktok">
-        <span>Dark Mode</span>
-        <v-icon color="black">mdi-weather-night</v-icon>
-      </v-btn>
-      <v-btn v-if="this.darkState" @click="goLight" value="tiktok">
-        <span>Make it bright</span>
-        <v-icon color="yellow">mdi-weather-sunny</v-icon>
-      </v-btn>
+
+      <v-switch @change="goDark" v-model="switch1" inset label>
+        <v-icon v-if="!this.switch1">{{icon.darkness}}</v-icon>
+        <v-icon v-if="this.switch1">{{icon.light}}</v-icon>
+      </v-switch>
     </v-bottom-navigation>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
 export default {
+  props: {
+    switch1: {
+      type: Boolean
+    }
+  },
   data() {
     return {
-      dark: false
+      icon: {
+        darkness: "mdi-weather-night",
+        light: "mdi-weather-sunny"
+      }
     };
   },
 
-  computed: {
-    ...mapGetters(["darkState"])
-  },
+  computed: {},
   methods: {
-    ...mapActions(["setappmode"]),
     goDark() {
-      localStorage.setItem("mode", "dark");
-      if (localStorage.getItem("mode") == "dark") {
-        this.dark = true;
-        this.setappmode(this.dark);
+      if (this.switch1) {
+        console.log(this.switch1);
         this.$vuetify.theme.dark = true;
-      }
-    },
-    goLight() {
-      localStorage.setItem("mode", "light");
-      if (localStorage.getItem("mode") == "light") {
-        this.dark = false;
-        this.setappmode(this.dark);
+        localStorage.setItem("mode", "dark");
+      } else {
+        console.log(this.switch1);
         this.$vuetify.theme.dark = false;
+        localStorage.setItem("mode", "light");
       }
     }
   }
 };
 </script>
 
+<style scoped>
+.v-btn:not(.v-btn--round).v-size--default {
+  height: 60px;
+}
+</style>

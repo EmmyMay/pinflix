@@ -14,30 +14,30 @@
         </v-card>
       </v-col>
     </v-row>
-
-    <bnav></bnav>
   </v-container>
 </template>
 
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import bnav from "@/components/btmnav";
+// import bnav from "@/components/btmnav";
 
 export default {
-  components: {
-    bnav
-  },
+  // components: {
+  //   bnav
+  // },
+
   data() {
     return {
-      bottomNav: "recent"
+      bottomNav: "recent",
+      dark: false
     };
   },
   methods: {
-    ...mapActions(["getTweets", "setappmode"])
+    ...mapActions(["getTweets"])
   },
   computed: {
-    ...mapGetters(["tweetPins", "darkState"])
+    ...mapGetters(["tweetPins"])
   },
   created() {
     this.getTweets();

@@ -14,18 +14,13 @@
         </v-card>
       </v-col>
     </v-row>
-
-    <bnav></bnav>
   </v-container>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import bnav from "@/components/btmnav";
+
 export default {
-  components: {
-    bnav
-  },
   data() {
     return {};
   },
@@ -35,7 +30,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["tikPins", "darkState"])
+    ...mapGetters(["tikPins"])
   },
   created() {
     this.getTiks();
@@ -48,11 +43,12 @@ export default {
     tiktokScript.setAttribute("charset", "utf-8");
     tiktokScript.async = true;
     document.head.appendChild(tiktokScript);
-    if (this.darkState) {
-      this.$vuetify.theme.dark = true;
-    } else {
-      this.$vuetify.theme.dark = false;
-    }
+
+    // if (localStorage.getItem("mode") == "dark") {
+    //   this.$vuetify.theme.dark = true;
+    // } else {
+    //   this.$vuetify.theme.dark = false;
+    // }
   }
 };
 </script>
