@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row class="btmspace">
-      <v-col cols="12" lg="4" v-for="data in tweetPins" :key="data.firsthref">
+      <v-col cols="12" lg="4" md="6" sm="6" v-for="data in tweetPins" :key="data.firsthref">
         <v-card tile>
           <blockquote class="twitter-tweet">
             <p lang="en" dir="ltr">
@@ -15,31 +15,6 @@
       </v-col>
     </v-row>
 
-    <!-- <v-row v-if="$vuetify.breakpoint.mdAndDown" id="mcontsmall">
-      <v-col v-for="data in tweetPins" :key="data.firsthref" id="blckqtsmall">
-        <blockquote class="twitter-tweet">
-          <p lang="en" dir="ltr">
-            {{data.caption}}
-            <a :href="data.firsthref"></a>
-            {{data.handle}}
-          </p>
-          <a :href="data.secondhref">{{data.date}}</a>
-        </blockquote>
-      </v-col>
-    </v-row>-->
-
-    <!-- <v-row class="hidden-md-and-up">
-      <v-col v-for="data in tweetPins" :key="data.firsthref">
-        <blockquote class="twitter-tweet">
-          <p lang="en" dir="ltr">
-            {{data.caption}}
-            <a :href="data.firsthref"></a>
-            {{data.handle}}
-          </p>
-          <a :href="data.secondhref">{{data.date}}</a>
-        </blockquote>
-      </v-col>
-    </v-row>-->
     <bnav></bnav>
   </v-container>
 </template>
@@ -59,25 +34,36 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["getTweets"])
+    ...mapActions(["getTweets", "setappmode"])
   },
   computed: {
-    ...mapGetters(["tweetPins"])
+    ...mapGetters(["tweetPins", "darkState"])
   },
   created() {
     this.getTweets();
   },
-  mounted() {
-    if (localStorage.getItem("reloaded")) {
-      // The page was just reloaded. Clear the value from local storage
-      // so that it will reload the next time this page is visited.
-      localStorage.removeItem("reloaded");
-    } else {
-      // Set a flag so that we know not to reload the page twice.
 
-      localStorage.setItem("reloaded", "1");
-      location.reload();
-    }
+  mounted() {
+    let twitterScript = document.createElement("script");
+    twitterScript.setAttribute(
+      "src",
+      "https://platform.twitter.com/widgets.js"
+    );
+    twitterScript.setAttribute("type", "text/javascript");
+    twitterScript.setAttribute("charset", "utf-8");
+    twitterScript.async = true;
+    document.head.appendChild(twitterScript);
+
+    // if (localStorage.getItem("reloaded")) {
+    //   // The page was just reloaded. Clear the value from local storage
+    //   // so that it will reload the next time this page is visited.
+    //   localStorage.removeItem("reloaded");
+    // } else {
+    //   // Set a flag so that we know not to reload the page twice.
+
+    //   localStorage.setItem("reloaded", "1");
+    //   location.reload();
+    // }
   }
 };
 </script>

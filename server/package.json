@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@bearer/node-agent": "^3.0.1",
     "@koa/cors": "^2.2.3",
     "koa": "^2.11.0",
     "koa-body": "^4.1.1",

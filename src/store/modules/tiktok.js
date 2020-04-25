@@ -6,7 +6,7 @@ const state = {
 };
 
 const getters = {
-    tikPins: (state) => state.tikArr,
+    tikPins: (state) => state.tikArr.reverse(),
 };
 
 const actions = {
@@ -14,7 +14,7 @@ const actions = {
         commit
     }) {
         const response = await axios.get("http://localhost:8080/pin/tiktok");
-        console.log(response.data);
+
         commit('Settiks', response.data);
     },
     async createTik({

@@ -48,7 +48,7 @@ export default {
       this.tiktokObject.cite = doc.all[3].getAttribute("cite");
       this.tiktokObject.vidID = doc.all[3].dataset.videoId;
       this.createTik(this.tiktokObject);
-      console.log(this.tiktokObject);
+      console.log("Successfull");
     }
   }
 };

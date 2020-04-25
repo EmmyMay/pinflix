@@ -1,33 +1,22 @@
 <template>
-  <div id="container">
-    <div class="hidden-sm-and-down" id="mcont">
-      <div v-for="data in tikPins" :key="data.vidID" id="blckqt">
-        <blockquote
-          class="tiktok-embed tikcont"
-          :cite="data.cite"
-          :data-video-id="data.vidID"
-          style="max-width: 605px;min-width: 325px;"
-        >
-          <section></section>
-        </blockquote>
-      </div>
-    </div>
-
-    <div class="hidden-md-and-up" id="mcontsmall">
-      <div v-for="data in tikPins" :key="data.vidID" id="blckqtsmall">
-        <blockquote
-          class="tiktok-embed tikcont"
-          :cite="data.cite"
-          :data-video-id="data.vidID"
-          style="max-width: 605px;min-width: 300px;"
-        >
-          <section></section>
-        </blockquote>
-      </div>
-    </div>
+  <v-container>
+    <v-row class="btmspace">
+      <v-col cols="12" lg="4" md="6" sm="6" v-for="data in tikPins" :key="data.vidID">
+        <v-card hover width="20rem" tile>
+          <blockquote
+            class="tiktok-embed tikcont"
+            :cite="data.cite"
+            :data-video-id="data.vidID"
+            style="max-width: 605px;min-width: 325px;"
+          >
+            <section></section>
+          </blockquote>
+        </v-card>
+      </v-col>
+    </v-row>
 
     <bnav></bnav>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -46,10 +35,24 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["tikPins"])
+    ...mapGetters(["tikPins", "darkState"])
   },
   created() {
     this.getTiks();
+  },
+
+  mounted() {
+    let tiktokScript = document.createElement("script");
+    tiktokScript.setAttribute("src", "https://www.tiktok.com/embed.js");
+    tiktokScript.setAttribute("type", "text/javascript");
+    tiktokScript.setAttribute("charset", "utf-8");
+    tiktokScript.async = true;
+    document.head.appendChild(tiktokScript);
+    if (this.darkState) {
+      this.$vuetify.theme.dark = true;
+    } else {
+      this.$vuetify.theme.dark = false;
+    }
   }
 };
 </script>
@@ -92,5 +95,12 @@ export default {
 }
 #blckqtsmall {
   width: 15rem;
+}
+.tiktok-embed {
+  width: 20rem;
+  height: 34rem;
+}
+.btmspace {
+  margin-bottom: 5rem;
 }
 </style>

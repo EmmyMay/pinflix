@@ -64,9 +64,8 @@ export default {
       );
       this.twitterObject.date = doc.all[3].lastElementChild.innerText;
       this.twitterObject.handle = doc.all[4].nextSibling.wholeText;
-      console.log(this.twitterObject);
       this.createTweet(this.twitterObject);
-      // axios.post("http://localhost:8080/pin/twitter", this.twitterObject);
+      console.log("Successfull");
     }
   }
 };
