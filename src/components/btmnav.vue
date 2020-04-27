@@ -15,49 +15,51 @@
         <v-icon color="black">mdi-music-note-sixteenth</v-icon>
       </v-btn>
 
-      <v-switch @change="goDark" v-model="switch1" inset label>
-        <v-icon v-if="!this.switch1">{{icon.darkness}}</v-icon>
-        <v-icon v-if="this.switch1">{{icon.light}}</v-icon>
-      </v-switch>
+      <v-btn v-if="!this.darkState" @click="goDark" v-model="light">
+        <span>Dark Mode</span>
+        <v-icon color="black">mdi-weather-night</v-icon>
+      </v-btn>
+      <v-btn v-if="this.darkState" @click="goLight" v-model="light">
+        <span>Make it bright</span>
+        <v-icon color="yellow">mdi-weather-sunny</v-icon>
+      </v-btn>
     </v-bottom-navigation>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
-  props: {
-    switch1: {
-      type: Boolean
-    }
-  },
   data() {
-    return {
-      icon: {
-        darkness: "mdi-weather-night",
-        light: "mdi-weather-sunny"
-      }
-    };
+    return {};
   },
 
-  computed: {},
-  methods: {
-    goDark() {
-      if (this.switch1) {
-        console.log(this.switch1);
-        this.$vuetify.theme.dark = true;
-        localStorage.setItem("mode", "dark");
-      } else {
-        console.log(this.switch1);
-        this.$vuetify.theme.dark = false;
-        localStorage.setItem("mode", "light");
+  computed: {
+    ...mapGetters(["darkState"]),
+
+    light: {
+      get() {
+        return this.darkState;
+      },
+      set(value) {
+        // console.log("I am VALUE    " + value);
+        this.setAppMode(value);
       }
+    }
+  },
+
+  methods: {
+    ...mapActions(["setAppMode"]),
+    goDark() {
+      localStorage.setItem("light-mode", this.light);
+
+      this.$vuetify.theme.dark = true;
+    },
+    goLight() {
+      localStorage.setItem("light-mode", this.light);
+      this.$vuetify.theme.dark = false;
     }
   }
 };
 </script>
 
-<style scoped>
-.v-btn:not(.v-btn--round).v-size--default {
-  height: 60px;
-}
-</style>
