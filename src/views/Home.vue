@@ -59,6 +59,13 @@ export default {
         }
       ]
     };
+  },
+  mounted() {
+    if (localStorage.getItem("light-mode") == "false") {
+      this.$vuetify.theme.dark = true;
+    } else if (localStorage.getItem("light-mode") == "true") {
+      this.$vuetify.theme.dark = false;
+    }
   }
 };
 </script>

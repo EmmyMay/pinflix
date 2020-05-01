@@ -20,7 +20,7 @@ const actions = {
     async createTik({
         commit
     }, tiktokObject) {
-        const response = await axios.post("http://localhost:8080/pin/tiktok", tiktokObject);
+        const response = axios.post("http://localhost:8080/pin/tiktok", tiktokObject)
         commit('postedTik', response.data);
     }
 };

@@ -7,13 +7,9 @@
 
 <script>
 export default {
-  beforeMount() {
-    if (localStorage.getItem("light-mode") == false) {
-      console.log("hello");
-    } else if (localStorage.getItem("light-mode") == true) {
-      console.log("Adele");
-    }
-  }
+  // beforeDestroy() {
+  //   localStorage.setItem("light-mode", this.$vuetify.dark.theme);
+  // }
 };
 </script>
 

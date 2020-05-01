@@ -11,11 +11,9 @@ Vue.use(VueRouter)
 const routes = [{
     path: '/',
     name: 'Home',
-    component: Home,
+    component: Home
 
-    getTweets() {
-      console.log("Hello");
-    }
+
   },
   {
     path: '/maintwi',

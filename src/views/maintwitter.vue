@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row class="btmspace">
-      <v-col cols="12" lg="4" md="6" sm="6" v-for="data in tweetPins" :key="data.firsthref">
+      <v-col cols="12" lg="4" md="6" sm="6" v-for="data in visibletweets" :key="data.firsthref">
         <v-card tile>
           <blockquote class="twitter-tweet">
             <p lang="en" dir="ltr">
@@ -13,6 +13,15 @@
           </blockquote>
         </v-card>
       </v-col>
+      <v-pagination
+        :length="theLength"
+        v-model="page"
+        circle
+        color="blue"
+        prev-icon="mdi-menu-left"
+        next-icon="mdi-menu-right"
+        @input="updatevisibletweets"
+      ></v-pagination>
     </v-row>
 
     <bnav></bnav>
@@ -30,17 +39,54 @@ export default {
   },
   data() {
     return {
-      bottomNav: "recent"
+      pageSize: 6,
+      visibletweets: [],
+      page: 1
     };
   },
   methods: {
-    ...mapActions(["getTweets"])
+    ...mapActions(["getTweets"]),
+    updatevisibletweets() {
+      if (this.page == 1) {
+        this.visibletweets = this.tweetPins.slice(
+          this.page * 0 * this.pageSize,
+          this.page * 0 * this.pageSize + this.pageSize
+        );
+      }
+
+      if (this.page > 1) {
+        var tp = this.page - 1;
+        console.log(this.page);
+        this.visibletweets = this.tweetPins.slice(
+          tp * this.pageSize,
+          tp * this.pageSize + this.pageSize
+        );
+      }
+
+      console.log(this.visibletweets);
+    },
+    refireScript() {
+      let twitterScript = document.createElement("script");
+      twitterScript.setAttribute(
+        "src",
+        "https://platform.twitter.com/widgets.js"
+      );
+      twitterScript.setAttribute("type", "text/javascript");
+      twitterScript.setAttribute("charset", "utf-8");
+      twitterScript.async = true;
+      document.head.appendChild(twitterScript);
+    }
   },
   computed: {
-    ...mapGetters(["tweetPins"])
+    ...mapGetters(["tweetPins"]),
+    theLength() {
+      return Math.ceil(this.tweetPins.length / this.pageSize);
+    }
   },
   created() {
-    this.getTweets();
+    this.getTweets().then(() => {
+      this.updatevisibletweets();
+    });
   },
 
   mounted() {
@@ -64,6 +110,9 @@ export default {
     //   localStorage.setItem("reloaded", "1");
     //   location.reload();
     // }
+  },
+  beforeUpdate() {
+    this.refireScript();
   }
 };
 </script>

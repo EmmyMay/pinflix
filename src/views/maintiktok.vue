@@ -1,7 +1,15 @@
 <template>
   <v-container>
     <v-row class="btmspace">
-      <v-col cols="12" lg="4" md="6" sm="6" v-for="data in tikPins" :key="data.vidID">
+      <v-col
+        :visibletiks="visibletiks"
+        cols="12"
+        lg="4"
+        md="6"
+        sm="6"
+        v-for="data in visibletiks"
+        :key="data.vidID"
+      >
         <v-card hover width="20rem" tile>
           <blockquote
             class="tiktok-embed tikcont"
@@ -13,6 +21,16 @@
           </blockquote>
         </v-card>
       </v-col>
+      <v-pagination
+        :length="theLength"
+        v-model="page"
+        value
+        circle
+        color="black"
+        prev-icon="mdi-menu-left"
+        next-icon="mdi-menu-right"
+        @input="updatevisibletiks"
+      ></v-pagination>
     </v-row>
 
     <bnav></bnav>
@@ -23,22 +41,62 @@
 import { mapGetters, mapActions } from "vuex";
 import bnav from "@/components/btmnav";
 export default {
+  name: "tiktokview",
   components: {
     bnav
   },
   data() {
-    return {};
+    return {
+      pageSize: 6,
+
+      visibletiks: [],
+      page: 1
+    };
   },
 
   methods: {
-    ...mapActions(["getTiks"])
+    ...mapActions(["getTiks"]),
+
+    // putting some of the tikPins into an empty array
+    updatevisibletiks() {
+      if (this.page == 1) {
+        this.visibletiks = this.tikPins.slice(
+          this.page * 0 * this.pageSize,
+          this.page * 0 * this.pageSize + this.pageSize
+        );
+      }
+
+      if (this.page > 1) {
+        var tp = this.page - 1;
+        console.log(this.page);
+        this.visibletiks = this.tikPins.slice(
+          tp * this.pageSize,
+          tp * this.pageSize + this.pageSize
+        );
+      }
+
+      console.log(this.visibletiks);
+    },
+    refireScript() {
+      let tiktokScript = document.createElement("script");
+      tiktokScript.setAttribute("src", "https://www.tiktok.com/embed.js");
+      tiktokScript.setAttribute("type", "text/javascript");
+      tiktokScript.setAttribute("charset", "utf-8");
+      tiktokScript.async = true;
+      document.head.appendChild(tiktokScript);
+    }
   },
 
   computed: {
-    ...mapGetters(["tikPins"])
+    ...mapGetters(["tikPins"]),
+    theLength() {
+      return Math.ceil(this.tikPins.length / this.pageSize);
+    }
   },
   created() {
-    this.getTiks();
+    this.getTiks().then(() => {
+      this.updatevisibletiks();
+    });
   },
 
   mounted() {
@@ -48,6 +106,10 @@ export default {
     tiktokScript.setAttribute("charset", "utf-8");
     tiktokScript.async = true;
     document.head.appendChild(tiktokScript);
+    this.updatevisibletiks();
+  },
+  beforeUpdate() {
+    this.refireScript();
   }
 };
 </script>
