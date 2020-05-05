@@ -1,29 +1,73 @@
 <template>
   <v-container>
-    <v-row class="btmspace">
-      <v-col cols="12" lg="4" md="6" sm="6" v-for="data in visibletweets" :key="data.firsthref">
-        <v-card tile>
-          <blockquote class="twitter-tweet">
-            <p lang="en" dir="ltr">
-              {{data.caption}}
-              <a :href="data.firsthref"></a>
-              {{data.handle}}
-            </p>
-            <a :href="data.secondhref">{{data.date}}</a>
-          </blockquote>
-        </v-card>
-      </v-col>
-      <v-pagination
-        :length="theLength"
-        v-model="page"
-        circle
-        color="blue"
-        prev-icon="mdi-menu-left"
-        next-icon="mdi-menu-right"
-        @input="updatevisibletweets"
-      ></v-pagination>
-    </v-row>
+    <div v-if="!arrived" class="row">
+      <v-skeleton-loader
+        v-for="(i) in 6"
+        :key="i"
+        class="mx-auto skeletonwidth"
+        max-width="500"
+        type="card"
+      ></v-skeleton-loader>
+    </div>
+    <!-- The layout after data has arrived and skeleeton loader is gone begins here -->
+    <transition>
+      <!-- wrapping it all up in a transition stops the bottom nav from animating -->
 
+      <v-row class="btmspace">
+        <transition-group
+          v-if="$vuetify.breakpoint.mdAndUp"
+          name="slide-fade"
+          tag="div"
+          class="row"
+          appear
+        >
+          <v-col cols="12" lg="4" md="6" sm="6" v-for="data in visibletweets" :key="data.firsthref">
+            <v-card tile>
+              <v-card-text>
+                <blockquote class="twitter-tweet">
+                  <p lang="en" dir="ltr">
+                    {{data.caption}}
+                    <a :href="data.firsthref"></a>
+                    {{data.handle}}
+                  </p>
+                  <a :href="data.secondhref">{{data.date}}</a>
+                </blockquote>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </transition-group>
+        <transition-group
+          v-if="$vuetify.breakpoint.smAndDown"
+          name="slide-fade"
+          tag="div"
+          class="col"
+          appear
+        >
+          <v-skeleton-loader v-if="!arrived" class="mx-auto" max-width="300" type="card"></v-skeleton-loader>
+          <v-col cols="12" lg="4" md="6" sm="6" v-for="data in visibletweets" :key="data.firsthref">
+            <v-card tile>
+              <blockquote class="twitter-tweet">
+                <p lang="en" dir="ltr">
+                  {{data.caption}}
+                  <a :href="data.firsthref"></a>
+                  {{data.handle}}
+                </p>
+                <a :href="data.secondhref">{{data.date}}</a>
+              </blockquote>
+            </v-card>
+          </v-col>
+        </transition-group>
+        <v-pagination
+          :length="theLength"
+          v-model="page"
+          circle
+          color="blue"
+          prev-icon="mdi-menu-left"
+          next-icon="mdi-menu-right"
+          @input="updatevisibletweets"
+        ></v-pagination>
+      </v-row>
+    </transition>
     <bnav></bnav>
   </v-container>
 </template>
@@ -41,7 +85,8 @@ export default {
     return {
       pageSize: 6,
       visibletweets: [],
-      page: 1
+      page: 1,
+      arrived: false
     };
   },
   methods: {
@@ -84,9 +129,12 @@ export default {
     }
   },
   created() {
-    this.getTweets().then(() => {
+    setTimeout(() => {
       this.updatevisibletweets();
-    });
+      this.arrived = true;
+    }, 3000);
+
+    this.getTweets();
   },
 
   mounted() {
@@ -118,6 +166,10 @@ export default {
 </script>
 
 <style scoped >
+.skeletonwidth {
+  width: 20rem;
+  margin-top: 1rem;
+}
 #container {
   display: grid;
   grid-template-columns: repeat(auto-fit, 1fr);
@@ -157,5 +209,16 @@ export default {
 }
 .btmspace {
   margin-bottom: 5rem;
+}
+/*  transitions */
+
+.slide-fade-enter {
+  transform: translateY(100px);
+}
+.slide-fade-enter-active {
+  transition: all 0.5s ease;
+}
+.slide-fade-leave-to {
+  transform: translateY(-100px);
 }
 </style>

@@ -1,38 +1,84 @@
 <template>
   <v-container>
-    <v-row class="btmspace">
-      <v-col
-        :visibletiks="visibletiks"
-        cols="12"
-        lg="4"
-        md="6"
-        sm="6"
-        v-for="data in visibletiks"
-        :key="data.vidID"
-      >
-        <v-card hover width="20rem" tile>
-          <blockquote
-            class="tiktok-embed tikcont"
-            :cite="data.cite"
-            :data-video-id="data.vidID"
-            style="max-width: 605px;min-width: 325px;"
+    <div v-if="!arrived" class="row">
+      <v-skeleton-loader
+        v-for="(i) in 6"
+        :key="i"
+        class="mx-auto skeletonwidth"
+        max-width="500"
+        type="card"
+      ></v-skeleton-loader>
+    </div>
+    <transition>
+      <v-row class="btmspace">
+        <transition-group
+          v-if="$vuetify.breakpoint.mdAndUp"
+          name="slide-fade"
+          tag="div"
+          class="row"
+          appear
+        >
+          <v-col
+            :visibletiks="visibletiks"
+            cols="12"
+            lg="4"
+            md="6"
+            sm="6"
+            v-for="data in visibletiks"
+            :key="data.vidID"
           >
-            <section></section>
-          </blockquote>
-        </v-card>
-      </v-col>
-      <v-pagination
-        :length="theLength"
-        v-model="page"
-        value
-        circle
-        color="black"
-        prev-icon="mdi-menu-left"
-        next-icon="mdi-menu-right"
-        @input="updatevisibletiks"
-      ></v-pagination>
-    </v-row>
-
+            <v-card v-if="arrived" hover width="20rem" tile>
+              <blockquote
+                class="tiktok-embed tikcont"
+                :cite="data.cite"
+                :data-video-id="data.vidID"
+                style="max-width: 605px;min-width: 325px;"
+              >
+                <section></section>
+              </blockquote>
+            </v-card>
+          </v-col>
+        </transition-group>
+        <transition-group
+          v-if="$vuetify.breakpoint.smAndDown"
+          name="slide-fade"
+          tag="div"
+          class="col"
+          appear
+        >
+          <v-col
+            :visibletiks="visibletiks"
+            cols="12"
+            lg="4"
+            md="6"
+            sm="6"
+            v-for="data in visibletiks"
+            :key="data.vidID"
+          >
+            <v-card hover width="20rem" tile>
+              <blockquote
+                class="tiktok-embed tikcont"
+                :cite="data.cite"
+                :data-video-id="data.vidID"
+                style="max-width: 605px;min-width: 325px;"
+              >
+                <section></section>
+              </blockquote>
+            </v-card>
+          </v-col>
+        </transition-group>
+        <v-pagination
+          :length="theLength"
+          v-model="page"
+          value
+          circle
+          color="black"
+          prev-icon="mdi-menu-left"
+          next-icon="mdi-menu-right"
+          @input="updatevisibletiks"
+        ></v-pagination>
+      </v-row>
+    </transition>
     <bnav></bnav>
   </v-container>
 </template>
@@ -50,7 +96,8 @@ export default {
       pageSize: 6,
 
       visibletiks: [],
-      page: 1
+      page: 1,
+      arrived: false
     };
   },
 
@@ -74,8 +121,6 @@ export default {
           tp * this.pageSize + this.pageSize
         );
       }
-
-      console.log(this.visibletiks);
     },
     refireScript() {
       let tiktokScript = document.createElement("script");
@@ -94,9 +139,11 @@ export default {
     }
   },
   created() {
-    this.getTiks().then(() => {
+    setTimeout(() => {
       this.updatevisibletiks();
-    });
+      this.arrived = true;
+    }, 3000);
+    this.getTiks();
   },
 
   mounted() {
@@ -114,7 +161,7 @@ export default {
 };
 </script>
 
-<style scoped >
+<style scoped>
 #container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -134,6 +181,7 @@ export default {
   justify-content: space-evenly;
   max-height: 650px;
 }
+
 #mcontsmall {
   display: flex;
   flex-direction: column;
@@ -150,14 +198,32 @@ export default {
 #blckqt {
   width: 20rem;
 }
+
 #blckqtsmall {
   width: 15rem;
 }
+
 .tiktok-embed {
   width: 20rem;
   height: 34rem;
 }
+
 .btmspace {
   margin-bottom: 5rem;
+}
+/*  transitions */
+
+.slide-fade-enter {
+  transform: translateY(100px);
+}
+.slide-fade-enter-active {
+  transition: all 0.5s ease;
+}
+.slide-fade-leave-to {
+  transform: translateY(-100px);
+}
+.skeletonwidth {
+  width: 20rem;
+  margin-top: 1rem;
 }
 </style>

@@ -20,7 +20,9 @@ const actions = {
     async createTik({
         commit
     }, tiktokObject) {
-        const response = axios.post("http://localhost:8080/pin/tiktok", tiktokObject)
+        var getToken = localStorage.getItem('user');
+        axios.defaults.headers.common['Authorization'] = `Bearer ${getToken}`;
+        const response = axios.post("http://localhost:8080/pin/tiktok", tiktokObject);
         commit('postedTik', response.data);
     }
 };

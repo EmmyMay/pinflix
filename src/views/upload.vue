@@ -9,6 +9,7 @@
       <v-tab-item>
         <component :is="component"></component>
       </v-tab-item>
+      <v-btn color="success">Logout</v-btn>
     </v-tabs>
   </div>
 </template>

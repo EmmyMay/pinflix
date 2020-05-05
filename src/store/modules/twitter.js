@@ -23,8 +23,10 @@ const actions = {
     async createTweet({
         commit
     }, twitterObject) {
-
+        var getToken = localStorage.getItem('user');
+        axios.defaults.headers.common['Authorization'] = `Bearer ${getToken}`;
         const response = await axios.post("http://localhost:8080/pin/twitter", twitterObject);
+        console.log(response);
         commit('postedTweet', response.data);
     }
 };

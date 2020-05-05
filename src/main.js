@@ -14,5 +14,17 @@ new Vue({
   router,
   store,
   vuetify,
+
+  created() {
+    if (localStorage.getItem('light-mode') == "false") {
+      this.$vuetify.theme.dark = true;
+    } else if (localStorage.getItem('light-mode') == "true") {
+      this.$vuetify.theme.dark = false;
+    }
+
+
+
+  },
+
   render: h => h(App)
 }).$mount('#app')

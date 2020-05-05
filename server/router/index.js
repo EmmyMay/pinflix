@@ -2,11 +2,12 @@ var router = require('koa-router');
 var r = router();
 const PinTweet = require('../model/twitter');
 const PinTiktok = require('../model/tiktok');
-const passport = require('koa-passport')
-const jsonwebtoken = require('jsonwebtoken')
+const passport = require('koa-passport');
+const jsonwebtoken = require('jsonwebtoken');
 const passportStrategies = require('../passport')
-const User = require('../model/users')
-const config = require('../config')
+const User = require('../model/users');
+const config = require('../config');
+const checkauth = require('../utils/checkAuth');
 
 
 
@@ -46,7 +47,7 @@ r.get('/pin/tiktok', async (ctx) => {
 // *******************************************************************
 
 // route to handle Twitter pin posts
-r.post('/pin/twitter', async (ctx) => {
+r.post('/pin/twitter', checkauth, async (ctx) => {
 
     // destructuring the data variables
     var {
@@ -66,7 +67,7 @@ r.post('/pin/twitter', async (ctx) => {
             error: "Post already present",
         };
         // return proper http code!!!!!!!!!!!!!!!!!!!!!
-        ctx.response.status = 404;
+        ctx.response.status = 403;
         console.log(ctx.body);
 
     }
@@ -81,12 +82,20 @@ r.post('/pin/twitter', async (ctx) => {
         });
         tweet.save().then((res) => {
             // log the saved data into the console for inspection
+
             console.log(res);
+
 
         }).catch(err => {
             ctx.body = err + " error occurred";
         })
-        ctx.response.status = 200;
+
+        ctx.body = {
+            msg: "Created Successfully"
+        }
+
+        ctx.status = 200;
+
     }
 
     console.log(ctx.request.body);
@@ -157,7 +166,10 @@ r.post('/pin/login', async ctx => {
 
                 const token = jsonwebtoken.sign(
                     payload,
-                    config.jwtSecret
+                    config.jwtSecret, {
+                        expiresIn: '3h'
+                    }
+
                 )
 
                 ctx.body = {

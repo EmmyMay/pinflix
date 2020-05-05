@@ -64,8 +64,13 @@ export default {
       );
       this.twitterObject.date = doc.all[3].lastElementChild.innerText;
       this.twitterObject.handle = doc.all[4].nextSibling.wholeText;
-      this.createTweet(this.twitterObject);
-      console.log("Successfull");
+      this.createTweet(this.twitterObject)
+        .then(() => {
+          console.log("Successfull");
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };
