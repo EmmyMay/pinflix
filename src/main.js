@@ -5,8 +5,10 @@ import store from './store'
 import './registerServiceWorker'
 import vuetify from './plugins/vuetify';
 import axios from 'axios'
+import meta from 'vue-meta'
 
 Vue.config.productionTip = false
+Vue.use(meta);
 
 Vue.prototype.$axios = axios;
 

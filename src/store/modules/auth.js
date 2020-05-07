@@ -15,9 +15,16 @@ const actions = {
         commit
     }, user) {
         let response = await axios.post("http://localhost:8080/pin/login", user);
-        console.log(response);
+
         commit('saveuser', response.data)
+    },
+    logoutUser({
+        commit
+    }) {
+
+        commit('logged_out')
     }
+
 };
 
 
@@ -26,10 +33,15 @@ const mutations = {
         var savedtoken = localStorage.setItem('user', payload.token);
         axios.defaults.headers.common['Authorization'] = `Bearer ${savedtoken}`;
         state.user = savedtoken;
-        // console.log(payload);
-        // console.log(payload.token);
 
+
+    },
+    logged_out(state) {
+        localStorage.removeItem('user');
+        axios.defaults.headers.common['Authorization'] = undefined;
+        state.user = null;
     }
+
 };
 
 export default {

@@ -20,12 +20,12 @@ r.get('/pin/twitter', async (ctx) => {
 
         var tweets = await PinTweet.find();
         ctx.body = tweets;
-        console.log(ctx.body);
+
 
 
     } catch (error) {
-        console.log(error);
-        ctx.body = "error: The Server timed-out "
+
+        ctx.body = "error: The Server timed-out " + error
     }
 
 })
@@ -35,11 +35,11 @@ r.get('/pin/tiktok', async (ctx) => {
 
         var tiks = await PinTiktok.find();
         ctx.body = tiks;
-        console.log(ctx.body);
+
 
 
     } catch (error) {
-        console.log(error);
+
         ctx.body = "error: The Server timed-out "
     }
 })
@@ -68,7 +68,7 @@ r.post('/pin/twitter', checkauth, async (ctx) => {
         };
         // return proper http code!!!!!!!!!!!!!!!!!!!!!
         ctx.response.status = 403;
-        console.log(ctx.body);
+
 
     }
     // If we do not, add it into the database
@@ -80,10 +80,10 @@ r.post('/pin/twitter', checkauth, async (ctx) => {
             secondhref: secondhref,
             date: date
         });
-        tweet.save().then((res) => {
+        tweet.save().then(() => {
             // log the saved data into the console for inspection
 
-            console.log(res);
+
 
 
         }).catch(err => {
@@ -91,21 +91,21 @@ r.post('/pin/twitter', checkauth, async (ctx) => {
         })
 
         ctx.body = {
-            msg: "Created Successfully"
+            msg: "Tweet Post Added!"
         }
 
-        ctx.status = 200;
+        ctx.response.status = 200;
 
     }
 
-    console.log(ctx.request.body);
+
 
 })
 
 // *********************
 
 // route to handle Tiktok pin posts
-r.post('/pin/tiktok', async (ctx) => {
+r.post('/pin/tiktok', checkauth, async (ctx) => {
     // destructuring the data variables
     var {
         cite,
@@ -122,8 +122,8 @@ r.post('/pin/tiktok', async (ctx) => {
             error: "Post already present",
         };
         // return proper http code!!!!!!!!!!!!!!!!!!!!!
-        ctx.response.status = 404;
-        console.log(ctx.body);
+        ctx.response.status = 403;
+
 
     }
     // If we do not, add it into the database
@@ -132,17 +132,21 @@ r.post('/pin/tiktok', async (ctx) => {
             cite: cite,
             vidID: vidID
         });
-        tik.save().then((res) => {
+        tik.save().then(() => {
             // log the saved data into the console for inspection
-            console.log(res);
+
+
 
         }).catch(err => {
             ctx.body = err + " error occurred";
         })
+        ctx.body = {
+            message: " Tiktok Post added! "
+        }
         ctx.response.status = 200;
     }
 
-    console.log(ctx.request.body);
+
 
 })
 
@@ -167,7 +171,7 @@ r.post('/pin/login', async ctx => {
                 const token = jsonwebtoken.sign(
                     payload,
                     config.jwtSecret, {
-                        expiresIn: '3h'
+                        expiresIn: '2d'
                     }
 
                 )
@@ -177,13 +181,14 @@ r.post('/pin/login', async ctx => {
                     email: user.email
 
                 }
+                ctx.response.status = 200
             }
         }
     )(ctx)
 })
 
 r.post('/pin/register', async ctx => {
-    console.log(ctx.request.body);
+
 
     const {
         email,
@@ -197,7 +202,11 @@ r.post('/pin/register', async ctx => {
     });
 
     if (found) {
-        console.log("User exists");
+
+        ctx.body = {
+            message: "You are already one of us"
+        }
+        ctx.status = 403;
 
     } else {
         const user = new User({
@@ -206,7 +215,7 @@ r.post('/pin/register', async ctx => {
             name
         });
 
-        console.log(user);
+
 
         await user.save().then((res) => {
             // log the saved data into the console for inspection
@@ -215,23 +224,12 @@ r.post('/pin/register', async ctx => {
             ctx.body = {
                 message: "You are now one of us!"
             }
-            console.log("New User " + res + " has been saved");
-            console.log(ctx.body);
+
             return
         })
     }
 
-    // return passport.authenticate('local', (err, user, info, status) => {
-    //     if (user) {
-    //         ctx.login(user);
-    //         ctx.redirect('/auth/status');
-    //     } else {
-    //         ctx.status = 400;
-    //         ctx.body = {
-    //             status: 'error'
-    //         };
-    //     }
-    // })(ctx);
+
 
 
 

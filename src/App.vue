@@ -9,9 +9,12 @@
 
 <script>
 export default {
-  // beforeDestroy() {
-  //   localStorage.setItem("light-mode", this.$vuetify.dark.theme);
-  // }
+  name: "App",
+  metaInfo: {
+    title: "Pin Flix",
+
+    titleTemplate: "%s | Twitter and Tiktok embed viewing site "
+  }
 };
 </script>
 

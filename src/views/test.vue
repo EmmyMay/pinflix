@@ -54,7 +54,6 @@ export default {
         this.currentPage * this.pageSize,
         this.currentPage * this.pageSize + this.pageSize
       );
-      console.log(this.visibletiks);
 
       if (this.visibletiks.length == 0 && this.currentPage > 0) {
         this.updatePage(this.currentPage - 1);

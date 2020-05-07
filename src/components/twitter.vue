@@ -22,6 +22,7 @@
       <v-btn @click="parseCode" color="blue accent-4">
         <span class="text--white">Upload</span>
       </v-btn>
+      <v-progress-circular v-if="sending" class="progress" indeterminate color="primary"></v-progress-circular>
     </div>
   </div>
 </template>
@@ -29,6 +30,7 @@
 <script>
 // import axios from "axios";
 import { mapActions } from "vuex";
+
 export default {
   name: "twitter",
   data() {
@@ -40,12 +42,14 @@ export default {
         firsthref: "",
         date: "",
         secondhref: ""
-      }
+      },
+      sending: false
     };
   },
   methods: {
     ...mapActions(["createTweet"]),
     parseCode: function(htmltag) {
+      this.sending = true;
       var parser = new DOMParser();
       htmltag = this.blockquote;
       var doc = parser.parseFromString(htmltag, "text/html");
@@ -66,10 +70,13 @@ export default {
       this.twitterObject.handle = doc.all[4].nextSibling.wholeText;
       this.createTweet(this.twitterObject)
         .then(() => {
-          console.log("Successfull");
+          this.sending = false;
         })
         .catch(err => {
-          console.log(err);
+          if (err.response.data.message == "jwt expired") {
+            localStorage.removeItem("user");
+            this.$router.push("/");
+          }
         });
     }
   }
@@ -92,6 +99,7 @@ export default {
   flex-direction: column;
   position: relative;
   top: 5rem;
+  height: 11rem;
 }
 #info p {
   font-size: 1.5rem;

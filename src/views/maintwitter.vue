@@ -45,7 +45,7 @@
         >
           <v-skeleton-loader v-if="!arrived" class="mx-auto" max-width="300" type="card"></v-skeleton-loader>
           <v-col cols="12" lg="4" md="6" sm="6" v-for="data in visibletweets" :key="data.firsthref">
-            <v-card tile>
+            <v-card flat>
               <blockquote class="twitter-tweet">
                 <p lang="en" dir="ltr">
                   {{data.caption}}
@@ -61,6 +61,7 @@
           :length="theLength"
           v-model="page"
           circle
+          total-visible="5"
           color="blue"
           prev-icon="mdi-menu-left"
           next-icon="mdi-menu-right"
@@ -75,11 +76,15 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import bnav from "@/components/btmnav";
 
 export default {
   components: {
-    bnav
+    bnav: () => import(/* webpackPrefetch: true */ "../components/btmnav")
+  },
+  metaInfo: {
+    title: "Twitter Pins",
+
+    titleTemplate: "%s | Twitter Tweets Embed Flix PinFlix "
   },
   data() {
     return {
@@ -101,14 +106,12 @@ export default {
 
       if (this.page > 1) {
         var tp = this.page - 1;
-        console.log(this.page);
+
         this.visibletweets = this.tweetPins.slice(
           tp * this.pageSize,
           tp * this.pageSize + this.pageSize
         );
       }
-
-      console.log(this.visibletweets);
     },
     refireScript() {
       let twitterScript = document.createElement("script");

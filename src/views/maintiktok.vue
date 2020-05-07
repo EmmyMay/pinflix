@@ -72,6 +72,7 @@
           v-model="page"
           value
           circle
+          total-visible="5"
           color="black"
           prev-icon="mdi-menu-left"
           next-icon="mdi-menu-right"
@@ -85,11 +86,16 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import bnav from "@/components/btmnav";
+
 export default {
   name: "tiktokview",
   components: {
-    bnav
+    bnav: () => import(/* webpackPrefetch: true */ "../components/btmnav")
+  },
+  metaInfo: {
+    title: "Tiktok Pins",
+
+    titleTemplate: "%s | Tiktok Tiktok videos Embed Flix PinFlix "
   },
   data() {
     return {
@@ -115,7 +121,7 @@ export default {
 
       if (this.page > 1) {
         var tp = this.page - 1;
-        console.log(this.page);
+
         this.visibletiks = this.tikPins.slice(
           tp * this.pageSize,
           tp * this.pageSize + this.pageSize

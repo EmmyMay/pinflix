@@ -31,12 +31,13 @@ mongoose.connect("mongodb+srv://emmyb:emmybee98@vue-8buqu.mongodb.net/embed?retr
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
-});
-mongoose.connection.once('open', () => {
-    console.log("Connection Made");
 }).catch((ctx, err) => {
     ctx.status = 500;
-    return err;
+    ctx.body = err;
+
+})
+mongoose.connection.once('open', () => {
+    console.log("Connection Made");
 })
 app.listen(3000, () => {
 

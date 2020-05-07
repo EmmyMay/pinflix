@@ -51,7 +51,7 @@ userSchema.methods.comparePassword = async function (userPassword, cb) {
         if (err) return err;
         cb(null, isMatch);
     });
-    console.log(userPassword + "  from helper function       " + this.password);
+
 };
 
 

@@ -22,12 +22,13 @@
       <v-btn @click="parseCode" color="blue accent-4">
         <span class="text--white">Upload</span>
       </v-btn>
+      <v-progress-circular v-if="sending" class="progress" indeterminate color="primary"></v-progress-circular>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -35,20 +36,32 @@ export default {
       tiktokObject: {
         cite: "",
         vidID: ""
-      }
+      },
+      message: "",
+      sending: false
     };
+  },
+
+  computed: {
+    ...mapGetters(["getmsg"])
   },
 
   methods: {
     ...mapActions(["createTik"]),
     parseCode: function(htmltag) {
+      this.sending = true;
       var parser = new DOMParser();
       htmltag = this.blockquote;
       var doc = parser.parseFromString(htmltag, "text/html");
       this.tiktokObject.cite = doc.all[3].getAttribute("cite");
       this.tiktokObject.vidID = doc.all[3].dataset.videoId;
-      this.createTik(this.tiktokObject);
-      console.log("Successfull");
+      this.createTik(this.tiktokObject)
+        .then(() => {
+          this.sending = false;
+        })
+        .catch(err => {
+          alert(err);
+        });
     }
   }
 };
@@ -69,10 +82,17 @@ export default {
   display: flex;
   flex-direction: column;
   position: relative;
+  height: 11rem;
   top: 5rem;
 }
 #info p {
   font-size: 1.5rem;
+}
+
+.progress {
+  position: relative;
+  top: 10%;
+  left: 48%;
 }
 
 @media only screen and (max-width: 500px) {

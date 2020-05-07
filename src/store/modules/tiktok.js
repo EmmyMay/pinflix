@@ -1,12 +1,14 @@
 import axios from 'axios'
 
 const state = {
-    tikArr: []
+    tikArr: [],
+    msg: ''
 
 };
 
 const getters = {
     tikPins: (state) => state.tikArr.reverse(),
+    getmsg: (state) => state.msg
 };
 
 const actions = {
@@ -22,15 +24,22 @@ const actions = {
     }, tiktokObject) {
         var getToken = localStorage.getItem('user');
         axios.defaults.headers.common['Authorization'] = `Bearer ${getToken}`;
-        const response = axios.post("http://localhost:8080/pin/tiktok", tiktokObject);
-        commit('postedTik', response.data);
+        const response = await axios.post("http://localhost:8080/pin/tiktok", tiktokObject);
+
+        commit('postedTik', response.data.message);
     }
 };
 
 
 const mutations = {
-    Settiks: (state, tikPin) => state.tikArr = tikPin,
-    postedTik: (state, tik) => state.tikArr.unshift(tik)
+    Settiks(state, tikPin) {
+        state.tikArr = tikPin;
+
+    },
+
+    postedTik(state, tik) {
+        state.message = tik;
+    }
 };
 
 export default {

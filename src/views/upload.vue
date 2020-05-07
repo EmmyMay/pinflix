@@ -9,14 +9,15 @@
       <v-tab-item>
         <component :is="component"></component>
       </v-tab-item>
-      <v-btn color="success">Logout</v-btn>
     </v-tabs>
+    <v-btn @click="logOut" class="logout" color="success">Logout</v-btn>
   </div>
 </template>
 
 <script>
 import twitter from "@/components/twitter.vue";
 import tiktok from "@/components/tiktok.vue";
+import { mapActions } from "vuex";
 export default {
   components: {
     twitter,
@@ -26,17 +27,16 @@ export default {
     return {
       component: "twitter",
       tab: null,
-      text:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      icons: false,
-      centered: true,
-      grow: false,
-      vertical: false,
-      prevIcon: false,
-      nextIcon: false,
-      right: false,
-      tabs: 3
+      centered: true
     };
+  },
+  methods: {
+    ...mapActions("auth", ["logoutUser"]),
+    logOut() {
+      this.logoutUser().then(() => {
+        this.$router.push("/");
+      });
+    }
   }
 };
 </script>
@@ -45,10 +45,12 @@ export default {
 #cont {
   display: flex;
   align-items: unset;
+  flex-direction: column;
 }
 
-#tabb {
-}
-#ad {
+.logout {
+  align-self: flex-start;
+  position: relative;
+  top: 9%;
 }
 </style>
