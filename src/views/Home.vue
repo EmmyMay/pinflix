@@ -20,8 +20,13 @@
       </v-col>
       <v-col :class="'shift'" cols="12" v-for="(intro, i) in intros" :key="(i)">
         <v-card :color="intro.color" outlined height="20rem">
-          <v-card-title primary-title>{{intro.title}}</v-card-title>
-          <v-card-text>{{intro.body}}</v-card-text>
+          <v-card-title class="text--disabled" primary-title>
+            <v-icon color="black">{{intro.icon}}</v-icon>
+            <span class="ml-5 display-1">{{intro.title}}</span>
+          </v-card-title>
+          <v-card-text>
+            <span class="introbody subtitle-1">{{intro.body}}</span>
+          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -32,37 +37,30 @@
 export default {
   name: "Home",
   metaInfo: {
-    title: "Pinflix Landing Page",
+    title: "Pinflix",
 
-    titleTemplate:
-      "%s | Tiktok Twitter Embed videos comedy PinFlixx Pinflix Home page "
+    titleTemplate: "%s | Home "
   },
   data() {
     return {
       intros: [
         {
-          title: "Lorem",
+          title: "Discover",
           icon: "mdi-circle",
-          body: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, quis sapiente.
-   Aspernatur fugit repellendus repellat nemo vel perferendis, quaerat enim, 
-  necessitatibus id consectetur accusamus soluta dolores dicta ullam dolorem cum.`,
-          color: "yellow darken-2"
+          body: `Discover exciting Twitter and Tiktok accounts`,
+          color: "red lighten-2"
         },
         {
-          title: "Lorem",
+          title: "Entertaining",
           icon: "mdi-circle",
-          body: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, quis sapiente.
-   Aspernatur fugit repellendus repellat nemo vel perferendis, quaerat enim, 
-  necessitatibus id consectetur accusamus soluta dolores dicta ullam dolorem cum.`,
-          color: "yellow accent-4"
+          body: `Amazing content to keep you entertained`,
+          color: "blue accent-4"
         },
         {
-          title: "Lorem",
+          title: "Comfortable",
           icon: "mdi-circle",
-          body: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, quis sapiente.
-   Aspernatur fugit repellendus repellat nemo vel perferendis, quaerat enim, 
-  necessitatibus id consectetur accusamus soluta dolores dicta ullam dolorem cum.`,
-          color: "yellow darken-2"
+          body: `All your favorite comedy skits all in one place`,
+          color: "green darken-2"
         }
       ]
     };
@@ -102,5 +100,9 @@ export default {
 
 #watch {
   color: black;
+}
+.introbody {
+  position: relative;
+  left: 10%;
 }
 </style>

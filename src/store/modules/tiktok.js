@@ -15,7 +15,7 @@ const actions = {
     async getTiks({
         commit
     }) {
-        const response = await axios.get("http://localhost:8080/pin/tiktok");
+        const response = await axios.get("https://pinflixx.herokuapp.com/pin/tiktok");
 
         commit('Settiks', response.data);
     },
@@ -24,7 +24,7 @@ const actions = {
     }, tiktokObject) {
         var getToken = localStorage.getItem('user');
         axios.defaults.headers.common['Authorization'] = `Bearer ${getToken}`;
-        const response = await axios.post("http://localhost:8080/pin/tiktok", tiktokObject);
+        const response = await axios.post("https://pinflixx.herokuapp.com/pin/tiktok", tiktokObject);
 
         commit('postedTik', response.data.message);
     }

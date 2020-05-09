@@ -95,7 +95,7 @@ export default {
   metaInfo: {
     title: "Tiktok Pins",
 
-    titleTemplate: "%s | Tiktok Tiktok videos Embed Flix PinFlix "
+    titleTemplate: "%s | Tiktok Pins"
   },
   data() {
     return {

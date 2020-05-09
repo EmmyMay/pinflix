@@ -84,7 +84,7 @@ export default {
   metaInfo: {
     title: "Twitter Pins",
 
-    titleTemplate: "%s | Twitter Tweets Embed Flix PinFlix "
+    titleTemplate: "%s | Twitter-Pins"
   },
   data() {
     return {

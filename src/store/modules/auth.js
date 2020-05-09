@@ -14,7 +14,7 @@ const actions = {
     async loginUser({
         commit
     }, user) {
-        let response = await axios.post("http://localhost:8080/pin/login", user);
+        let response = await axios.post("https://pinflixx.herokuapp.com/pin/login", user);
 
         commit('saveuser', response.data)
     },

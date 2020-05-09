@@ -16,7 +16,7 @@ const actions = {
     async getTweets({
         commit
     }) {
-        const response = await axios.get("http://localhost:8080/pin/twitter");
+        const response = await axios.get("https://pinflixx.herokuapp.com/pin/twitter");
 
 
         commit('Settweets', response.data);
@@ -26,7 +26,7 @@ const actions = {
     }, twitterObject) {
         var getToken = localStorage.getItem('user');
         axios.defaults.headers.common['Authorization'] = `Bearer ${getToken}`;
-        const response = await axios.post("http://localhost:8080/pin/twitter", twitterObject);
+        const response = await axios.post("https://pinflixx.herokuapp.com/pin/twitter", twitterObject);
 
         commit('postedTweet', response.data);
     }
