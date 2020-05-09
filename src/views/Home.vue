@@ -30,6 +30,13 @@
 
 <script>
 export default {
+  name: "Home",
+  metaInfo: {
+    title: "Pinflix Landing Page",
+
+    titleTemplate:
+      "%s | Tiktok Twitter Embed videos comedy PinFlixx Pinflix Home page "
+  },
   data() {
     return {
       intros: [

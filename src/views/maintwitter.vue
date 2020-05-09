@@ -7,6 +7,7 @@
         class="mx-auto skeletonwidth"
         max-width="500"
         type="card"
+        transition
       ></v-skeleton-loader>
     </div>
     <!-- The layout after data has arrived and skeleeton loader is gone begins here -->
@@ -43,7 +44,6 @@
           class="col"
           appear
         >
-          <v-skeleton-loader v-if="!arrived" class="mx-auto" max-width="300" type="card"></v-skeleton-loader>
           <v-col cols="12" lg="4" md="6" sm="6" v-for="data in visibletweets" :key="data.firsthref">
             <v-card flat>
               <blockquote class="twitter-tweet">
