@@ -59,8 +59,8 @@ export default {
         {
           title: "Comfortable",
           icon: "mdi-circle",
-          body: `All your favorite comedy skits in one place`,
-          color: "green darken-2"
+          body: `All your favorite comedy skits all in one place`,
+          color: "grey darken-2"
         }
       ]
     };
