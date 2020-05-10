@@ -60,7 +60,7 @@ export default {
           title: "Comfortable",
           icon: "mdi-circle",
           body: `All your favorite comedy skits all in one place`,
-          color: "green darken-2"
+          color: "grey darken-2"
         }
       ]
     };
