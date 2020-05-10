@@ -27,7 +27,7 @@
             v-for="data in visibletiks"
             :key="data.vidID"
           >
-            <v-card v-if="arrived" hover width="20rem" tile>
+            <v-card v-if="arrived" hover width="20rem" class="tikcards" tile>
               <blockquote
                 class="tiktok-embed tikcont"
                 :cite="data.cite"
@@ -55,7 +55,7 @@
             v-for="data in visibletiks"
             :key="data.vidID"
           >
-            <v-card hover width="20rem" tile>
+            <v-card hover width="20rem" class="tikcards" tile>
               <blockquote
                 class="tiktok-embed tikcont"
                 :cite="data.cite"
@@ -231,5 +231,8 @@ export default {
 .skeletonwidth {
   width: 20rem;
   margin-top: 1rem;
+}
+.tikcards {
+  margin: auto;
 }
 </style>

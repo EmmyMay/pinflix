@@ -218,6 +218,7 @@ export default {
 .slide-fade-enter {
   transform: translateY(100px);
 }
+.slide-fade-enter-active,
 .slide-fade-enter-active {
   transition: all 0.5s ease;
 }

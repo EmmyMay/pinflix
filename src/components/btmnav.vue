@@ -1,6 +1,6 @@
 <template>
   <div id="bnav">
-    <v-bottom-navigation shift fixed>
+    <v-bottom-navigation hide-on-scroll shift fixed>
       <v-btn to="/" value="recent">
         <span>Home</span>
         <v-icon color="pink">mdi-home</v-icon>
