@@ -1,3 +1,5 @@
+const PrerenderSPAPlugin = require('prerender-spa-plugin');
+const path = require('path');
 module.exports = {
   "transpileDependencies": [
     "vuetify"
@@ -13,10 +15,17 @@ module.exports = {
   configureWebpack: {
     plugins: [
       new PrerenderSPAPlugin({
-        indexPath: path.resolve('dist/i.html'),
+        indexPath: path.resolve('public/index.html'),
         staticDir: path.resolve('dist'),
-        routes: ['/', '/a', '/b'],
+        routes: ['/', '/maintwi', '/maintik', '/admin', '/upload'],
+        renderer: new PrerenderSPAPlugin.PuppeteerRenderer({
+          injectProperty: '__prerender',
+          inject: {},
+          renderAfterDocumentEvent: 'render-ready',
+        })
       }),
-    ]
+
+    ],
+
   }
 }
