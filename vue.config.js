@@ -9,5 +9,14 @@ module.exports = {
         args[0].title = 'PinFlix'
         return args
       })
+  },
+  configureWebpack: {
+    plugins: [
+      new PrerenderSPAPlugin({
+        indexPath: path.resolve('dist/i.html'),
+        staticDir: path.resolve('dist'),
+        routes: ['/', '/a', '/b'],
+      }),
+    ]
   }
 }
